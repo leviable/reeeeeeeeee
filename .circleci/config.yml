@@ -46,6 +46,24 @@ jobs:
       - run-python-tests:
           tox-env: "py36"
 
+  deploy:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Write VERSION file
+          command: echo $(git describe --tags --exact-match $(git rev-parse --short=7 HEAD)) > reeeeeeeeee/VERSION
+      - run:
+          name: Build Packages
+          command: |
+            sudo pip install twine wheel
+            python setup.py sdist bdist_wheel
+      - run:
+          name: Upload packages
+          command: twine upload --verbose --repository-url https://test.pypi.org/legacy/ -u $PYPI_USER -p $PYPI_PASS dist/reee*
+
+
 # ###############################
 #
 # CircleCI Job Filters
@@ -53,7 +71,7 @@ jobs:
 # ###############################
 test-filters: &test-filters
   tags:
-    ignore: /.*/
+    only: /.*/
   branches:
     only: /.*/
 
@@ -79,3 +97,7 @@ workflows:
           requires:
             - python-36-test
           filters: *test-filters
+      - deploy:
+          requires:
+            - tests-passed
+          filters: *deploy-filters
