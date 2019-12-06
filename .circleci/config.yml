@@ -11,14 +11,20 @@ version: 2.1
 commands:
   run-python-tests:
     description: "Run Tox based Python tests"
+    parameters:
+      tox-env:
+        type: string
     steps:
       - checkout
+      - run:
+          name: Install Tox
+          command: sudo pip install tox
       - run:
           name: Run linter
           command: tox -e lint
       - run:
           name: Run unit tests
-          command: tox -e unit
+          command: tox -e << parameters.tox-env >>
 
 # ###############################
 #
@@ -27,9 +33,9 @@ commands:
 # ###############################
 jobs:
   tests-passed:
-    docker:
-      - image: bash/latest
     description: "Gate to wait for all tests to pass"
+    docker:
+      - image: bash:latest
     steps:
       - run: echo "All tests passed"
 
@@ -37,7 +43,8 @@ jobs:
     docker:
       - image: circleci/python:3.6
     steps:
-      - run-python-tests
+      - run-python-tests:
+          tox-env: "py36"
 
 # ###############################
 #
