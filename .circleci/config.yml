@@ -1,0 +1,74 @@
+version: 2.1
+
+# ############################################
+#
+# Set Circle CI Reusable Commands
+#
+# For more information, see the documentation:
+# https://circleci.com/docs/2.0/reusing-config
+#
+# ############################################
+commands:
+  run-python-tests:
+    description: "Run Tox based Python tests"
+    steps:
+      - checkout
+      - run:
+          name: Run linter
+          command: tox -e lint
+      - run:
+          name: Run unit tests
+          command: tox -e unit
+
+# ###############################
+#
+# CircleCI 2.1 Jobs
+#
+# ###############################
+jobs:
+  tests-passed:
+    docker:
+      - image: bash/latest
+    description: "Gate to wait for all tests to pass"
+    steps:
+      - run: echo "All tests passed"
+
+  python-36-test:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - run-python-tests
+
+# ###############################
+#
+# CircleCI Job Filters
+#
+# ###############################
+test-filters: &test-filters
+  tags:
+    ignore: /.*/
+  branches:
+    only: /.*/
+
+deploy-filters: &deploy-filters
+  tags:
+    only: /.*/
+  branches:
+    ignore: /.*/
+
+# ###############################
+#
+# CircleCI Workflow
+#
+# ###############################
+workflows:
+  version: 2.1
+
+  reeeeeeeeee-pipeline:
+    jobs:
+      - python-36-test:
+          filters: *test-filters
+      - tests-passed:
+          requires:
+            - python-36-test
+          filters: *test-filters
