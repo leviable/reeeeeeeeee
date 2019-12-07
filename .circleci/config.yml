@@ -39,12 +39,40 @@ jobs:
     steps:
       - run: echo "All tests passed"
 
+  python-34-test:
+    docker:
+      - image: circleci/python:3.4
+    steps:
+      - run-python-tests:
+          tox-env: "py34"
+
+  python-35-test:
+    docker:
+      - image: circleci/python:3.5
+    steps:
+      - run-python-tests:
+          tox-env: "py35"
+
   python-36-test:
     docker:
       - image: circleci/python:3.6
     steps:
       - run-python-tests:
           tox-env: "py36"
+
+  python-37-test:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - run-python-tests:
+          tox-env: "py37"
+
+  python-38-test:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - run-python-tests:
+          tox-env: "py38"
 
   deploy:
     docker:
@@ -97,11 +125,23 @@ workflows:
 
   reeeeeeeeee-pipeline:
     jobs:
+      - python-34-test:
+          filters: *test-filters
+      - python-35-test:
+          filters: *test-filters
       - python-36-test:
+          filters: *test-filters
+      - python-37-test:
+          filters: *test-filters
+      - python-38-test:
           filters: *test-filters
       - tests-passed:
           requires:
+            - python-34-test
+            - python-35-test
             - python-36-test
+            - python-37-test
+            - python-38-test
           filters: *test-filters
       - deploy:
           requires:
