@@ -19,7 +19,7 @@ with open(join(HERE, 'README.rst'), 'r') as r:
     long_description = r.read()
 
 setup(
-    name="reeeeeeeeee",
+    name="r${E_COUNT}",
     author="Levi Noecker",
     author_email="levi.noecker@gmail.com",
     url="https://github.com/leviable/reeeeeeeeee",

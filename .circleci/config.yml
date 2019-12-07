@@ -58,7 +58,12 @@ jobs:
           name: Build Packages
           command: |
             sudo pip install twine wheel
-            python setup.py sdist bdist_wheel
+            sudo apt-get install -y gettext
+            mv setup.py setup.bak
+            for i in $(seq 3 24); do
+              cat setup.bak | E_COUNT=$(printf 'e%.0s' {3..$i}) envsubst > setup.py
+              python setup.py sdist bdist_wheel
+            done
       - run:
           name: Upload packages
           command: twine upload --verbose --repository-url https://test.pypi.org/legacy/ -u $PYPI_USER -p $PYPI_PASS dist/reee*
