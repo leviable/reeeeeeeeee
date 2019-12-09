@@ -31,7 +31,7 @@ setup(
     install_requires=[],
     keywords="",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
@@ -46,31 +46,6 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     entry_points={
-        'console_scripts': [
-            're=reeeeeeeeee.__init__:reeeeeeeeee',
-            'ree=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-            'reeeeeeeeeeeeeeeeeeeeeeee=reeeeeeeeee.__init__:reeeeeeeeee',
-        ]
+        'console_scripts': ['r{0}=reeeeeeeeee.__init__:reeeeeeeeee'.format('e'*count) for count in range(1, 31)]
     }
 )
